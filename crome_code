@@ -1,0 +1,45 @@
+// background.js
+
+// Listen for when the extension is installed or updated
+chrome.runtime.onInstalled.addListener(() => {
+  // Register a context menu item to fetch data from URLs in a CSV file
+  chrome.contextMenus.create({
+    title: 'Fetch data from CSV',
+    contexts: ['all'],
+    onclick: fetchFromCSV
+  });
+});
+
+function fetchFromCSV(info, tab) {
+  // Ask the user to select a CSV file
+  chrome.fileSystem.chooseEntry({ type: 'openFile' }, fileEntry => {
+    if (!fileEntry) return;
+
+    // Read the contents of the CSV file
+    fileEntry.file(file => {
+      const reader = new FileReader();
+      reader.onload = event => {
+        const csv = event.target.result;
+
+        // Parse the CSV data into an array of URLs
+        const urls = csv.split('\n').map(line => line.trim()).filter(Boolean);
+
+        // Fetch data from each URL using the fetch API
+        Promise.all(urls.map(url => fetch(url)))
+          .then(responses => Promise.all(responses.map(r => r.text())))
+          .then(data => {
+            // Do something with the fetched data, such as display it in a new tab
+            const newDataTab = {
+              url: chrome.extension.getURL('newtab.html'),
+              active: true
+            };
+            chrome.tabs.create(newDataTab, tab => {
+              chrome.tabs.sendMessage(tab.id, { data });
+            });
+          })
+          .catch(error => console.error(error));
+      };
+      reader.readAsText(file);
+    });
+  });
+}

@@ -1,0 +1,81 @@
+/* Add here all your CSS customizations */
+p{
+    text-align:justify;
+    color:#212529!important;
+}
+.thumb-info img{
+    height:310px!important;
+}
+
+.team-section{
+    display:inline-flex;
+}
+@media only screen and (max-width:480px){
+  .team-section{
+      display:block;
+  } 
+  #myCarousel .carousel-inner{
+      height:150px !important;
+  }
+  .clients1{
+      width:200px!important;
+  }
+  .popup-free-first{
+      display:none !important;
+  }
+  .modalforgot-content{
+      
+      background-image:none!important;
+  }
+  .close{
+      margin-top:-24px;
+  }
+  
+}
+@media only screen and (max-width:375px){
+  .team-section{
+      display:block;
+  } 
+  #myCarousel .carousel-inner{
+      height:150px !important;
+  }
+  .clients1{
+      width:200px!important;
+  }
+   .popup-free-first{
+      display:none !important;
+  }
+  .modalforgot-content{
+     
+      background-image:none!important;
+  }
+  .close{
+      margin-top:-24px;
+  }
+  
+}
+
+@media only screen and (max-width:736px){
+  .team-section{
+      display:block;
+  } 
+  #myCarousel .carousel-inner{
+      height:150px !important;
+  }
+  .clients1{
+      width:200px!important;
+  }
+  
+  
+}
+
+.top-header {
+    height: 33.8182px;
+    min-height: 0px;
+    overflow: visible;
+    background: #f4f4f4;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 8em;
+    padding-right: 8em;
+}
